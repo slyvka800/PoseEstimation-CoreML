@@ -9,6 +9,12 @@
 import CoreGraphics
 import Foundation
 
+// for screen resolution
+import UIKit
+
+//for sound
+import AVFoundation
+
 struct PredictedPoint {
     let maxPoint: CGPoint
     let maxConfidence: Double
@@ -27,6 +33,10 @@ struct PredictedPoint {
 class CapturedPoint: NSObject, NSCoding {
     let point: CGPoint
     
+    //player
+    var audioPlayer: AVAudioPlayer?
+    
+    
     func encode(with aCoder: NSCoder) {
         aCoder.encode(point, forKey: "point")
     }
@@ -34,11 +44,44 @@ class CapturedPoint: NSObject, NSCoding {
     required init?(coder aDecoder: NSCoder) {
         point = aDecoder.decodeObject(forKey: "point") as? CGPoint ?? aDecoder.decodeCGPoint(forKey: "point")
         
+        super.init()
+        checkTopLeftAngleBelonging(point: point)
+        
     }
     
     init(predictedPoint: PredictedPoint) {
         point = predictedPoint.maxPoint
- 
+        
+        super.init()
+        checkTopLeftAngleBelonging(point: point)
+    }
+    
+    func checkTopLeftAngleBelonging(point: CGPoint) {
+        
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        
+        let topLeftAngleBorderX = 0.3 * screenWidth
+        let topLeftAngleBorderY = 0.7 * screenHeight
+        
+        if point.x <= topLeftAngleBorderX && point.y >= topLeftAngleBorderY {
+            playSound()
+        }
+    }
+    
+    func playSound() {
+        if let path = Bundle.main.path(forResource: "Sound", ofType: "mp3") {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("cannot open file")
+            }
+        }
+        
     }
 }
 
