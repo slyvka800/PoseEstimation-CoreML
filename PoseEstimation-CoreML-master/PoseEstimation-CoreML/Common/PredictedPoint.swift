@@ -9,6 +9,7 @@
 import CoreGraphics
 import Foundation
 
+
 struct PredictedPoint {
     let maxPoint: CGPoint
     let maxConfidence: Double
@@ -33,13 +34,12 @@ class CapturedPoint: NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
         point = aDecoder.decodeObject(forKey: "point") as? CGPoint ?? aDecoder.decodeCGPoint(forKey: "point")
-        
     }
     
     init(predictedPoint: PredictedPoint) {
         point = predictedPoint.maxPoint
- 
     }
+    
 }
 
 struct CapturedPointAngle {
