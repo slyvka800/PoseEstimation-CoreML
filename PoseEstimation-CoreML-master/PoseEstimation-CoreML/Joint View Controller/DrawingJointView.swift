@@ -7,10 +7,13 @@
 //
 
 import UIKit
+import AVFoundation
+
 
 class DrawingJointView: UIView {
     
     static let threshold = 0.23
+    var audioPlayer: AVAudioPlayer?
     
     // the count of array may be <#14#> when use PoseEstimationForMobile's model
     private var keypointLabelBGViews: [UIView] = []
@@ -60,9 +63,26 @@ class DrawingJointView: UIView {
     
     override func draw(_ rect: CGRect) {
         if let ctx = UIGraphicsGetCurrentContext() {
-            
             ctx.clear(rect);
+
+            //MARK: Draw rectangle
+            let screenSize = UIScreen.main.bounds
+            let screenWidth = screenSize.width
+            let screenHeight = screenSize.height
             
+            let topLeftAngleBorderX = 0.3 * screenWidth
+            let topLeftAngleBorderY = 0.3 * screenHeight
+            
+            let path = ctx
+            
+            path.move(to: CGPoint(x: 0, y: 0))
+            path.addLine(to: CGPoint(x: CGFloat(topLeftAngleBorderX), y: 0))
+            path.addLine(to: CGPoint(x: CGFloat(topLeftAngleBorderX), y: CGFloat(topLeftAngleBorderY)))
+            path.addLine(to: CGPoint(x: 0, y: CGFloat(topLeftAngleBorderY)))
+            path.addLine(to: CGPoint(x: 0, y: 0))
+            // end of rectangular drawing
+            
+
             let size = self.bounds.size
             
             let color = PoseEstimationForMobileConstant.jointLineColor.cgColor
@@ -75,10 +95,44 @@ class DrawingJointView: UIView {
                         let point1 = CGPoint(x: p1.x * size.width, y: p1.y*size.height)
                         let point2 = CGPoint(x: p2.x * size.width, y: p2.y*size.height)
                         drawLine(ctx: ctx, from: point1, to: point2, color: color)
+                        checkTopLeftAngleBelonging(point: point1, pointIndex: pIndex1)
+                        checkTopLeftAngleBelonging(point: point2, pointIndex: pIndex2)
                     }
                 }
             }
         }
+    }
+    
+    func checkTopLeftAngleBelonging(point: CGPoint, pointIndex: Int) {
+                
+        let screenSize = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        
+        let topLeftAngleBorderX = 0.3 * screenWidth
+        let topLeftAngleBorderY = 0.3 * screenHeight
+        let rWristIndex = 4
+        
+        
+        if point.x <= topLeftAngleBorderX && point.y <= topLeftAngleBorderY {
+            if pointIndex == rWristIndex {
+                playSound()
+            }
+        }
+    }
+    
+    func playSound() {
+        if let path = Bundle.main.path(forResource: "Sound.mp3", ofType: nil) {
+            let url = URL(fileURLWithPath: path)
+            
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: url)
+                audioPlayer?.play()
+            } catch {
+                print("cannot open file")
+            }
+        }
+        
     }
     
     private func drawLine(ctx: CGContext, from p1: CGPoint, to p2: CGPoint, color: CGColor) {

@@ -31,6 +31,7 @@
 		71F1455422F1C890000ED787 /* model_hourglass.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 71F1455222F1C890000ED787 /* model_hourglass.mlmodel */; };
 		71F3DAE223659D7400DB67F8 /* model_cpm.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 71F1455122F1C890000ED787 /* model_cpm.mlmodel */; };
 		71F3DAE323659D7700DB67F8 /* model_hourglass.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 71F1455222F1C890000ED787 /* model_hourglass.mlmodel */; };
+		EF6F2D3726F8B1110070A944 /* Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EF6F2D3626F8B1110070A944 /* Sound.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		71EF2DC422C4878D009391C8 /* PredictedPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictedPoint.swift; sourceTree = "<group>"; };
 		71F1455122F1C890000ED787 /* model_cpm.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = model_cpm.mlmodel; sourceTree = "<group>"; };
 		71F1455222F1C890000ED787 /* model_hourglass.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = model_hourglass.mlmodel; sourceTree = "<group>"; };
+		EF6F2D3626F8B1110070A944 /* Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Sound.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +131,7 @@
 		557F530620ED252100CFCCD7 = {
 			isa = PBXGroup;
 			children = (
-				EF8A9C2526E4B735006D584D /* Sounds */,
+				EF6F2D3626F8B1110070A944 /* Sound.mp3 */,
 				557F531120ED252100CFCCD7 /* PoseEstimation-CoreML */,
 				554F14752202B07B00B828B0 /* PoseEstimation-CoreMLTests */,
 				557F531020ED252100CFCCD7 /* Products */,
@@ -181,13 +183,6 @@
 				7165F7582271772A0010F164 /* StillImageHeatmapViewController.swift */,
 			);
 			path = "Still Image Heatmap View Controller";
-			sourceTree = "<group>";
-		};
-		EF8A9C2526E4B735006D584D /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,6 +276,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF6F2D3726F8B1110070A944 /* Sound.mp3 in Resources */,
 				557F531D20ED252400CFCCD7 /* LaunchScreen.storyboard in Resources */,
 				557F531A20ED252400CFCCD7 /* Assets.xcassets in Resources */,
 				557F531820ED252100CFCCD7 /* Main.storyboard in Resources */,
